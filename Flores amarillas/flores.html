@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Antonella 🌼</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(270deg, #fff8dc, #fffacd, #ffe4b5);
+      background-size: 600% 600%;
+      animation: fondo 40s ease infinite;
+      overflow-x: hidden;
+      font-family: 'Segoe Script', cursive;
+    }
+
+    @keyframes fondo {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      margin: 20px;
+      font-family: 'Segoe Script', cursive;
+    }
+
+    h1 {
+      font-size: 3.4em;
+      color: #d4af37;
+      text-shadow: 0 0 25px #fffacd, 0 0 35px #ffd700;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      color: #b8860b;
+    }
+
+    h3 {
+      font-size: 2em;
+      color: #d2691e;
+      margin: 10px 20px 10px;
+      text-align: center;
+      white-space: normal;
+      border: none;
+      opacity: 1;
+      text-shadow:
+        0 0 5px #fffacd,
+        0 0 10px #ffd700,
+        0 0 15px #ffd700,
+        0 0 20px #fffacd;
+      transition: all 0.5s ease;
+    }
+    /* quitamos el hover animado */
+    h3:hover {
+      transform: none;
+      text-shadow:
+        0 0 5px #fffacd,
+        0 0 10px #ffd700,
+        0 0 15px #ffd700,
+        0 0 20px #fffacd;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Galería de fotos */
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .galeria img {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3), 0 0 15px rgba(255,215,0,0.4);
+      transition: transform 0.5s, box-shadow 0.5s;
+      cursor: pointer;
+    }
+
+    .galeria img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4), 0 0 25px rgba(255,215,0,0.7);
+    }
+
+    /* Modal mejorado */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%);
+      overflow: hidden;
+    }
+
+    .modal-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 30px;
+      padding: 40px;
+    }
+
+    .modal img {
+      max-width: 60%;
+      max-height: 80%;
+      border-radius: 20px;
+      box-shadow: 0 0 40px #ff69b4, 0 0 60px #ffd700;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+    }
+
+    #mensaje {
+      max-width: 35%;
+      padding: 20px 25px;
+      background: rgba(255, 228, 181, 0.95);
+      color: #8b0000;
+      font-size: 1.4em;
+      font-style: italic;
+      line-height: 1.5em;
+      border-radius: 20px;
+      border: 2px solid #ffd700;
+      box-shadow: 0 0 25px #ff69b4, 0 0 30px #ffd700;
+      text-align: center;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      color: #fff;
+      font-size: 45px;
+      font-weight: bold;
+      cursor: pointer;
+      text-shadow: 0 0 15px #ff69b4, 0 0 25px #ffd700;
+    }
+
+    .close:hover { color: #ffd700; }
+
+    /* Botón música */
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffd700;
+      border: none;
+      border-radius: 50%;
+      width: 65px;
+      height: 65px;
+      cursor: pointer;
+      font-size: 1.6em;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .music-btn:hover {
+      transform: scale(1.15) rotate(10deg);
+    }
+  </style>
+</head>
+<body>
+  <h1>🌼 Para el Amor de mi Vida 🌼</h1>
+  <h2>Con todo mi cariño, siempre a tu lado 💕</h2>
+  <h3>✨ Cada momento a tu lado ✨</h3>
+  <h3>es un recuerdo que guardaré por siempre ✨</h3>
+
+  <canvas id="flores"></canvas>
+
+  <!-- Galería -->
+  <section class="galeria">
+    <img src="src/foto1.jpg" alt="Foto 1">
+    <img src="src/foto2.jpg" alt="Foto 2">
+    <img src="src/foto3.jpg" alt="Foto 3">
+    <img src="src/foto4.jpg" alt="Foto 4">
+    <img src="src/foto5.jpg" alt="Foto 5">
+    <img src="src/foto6.jpg" alt="Foto 6">
+    <img src="src/foto7.jpg" alt="Foto 7">
+    <img src="src/foto8.jpg" alt="Foto 8">
+    <img src="src/foto9.jpg" alt="Foto 9">
+    <img src="src/foto10.jpg" alt="Foto 10">
+    <img src="src/foto11.jpg" alt="Foto 11">
+    <img src="src/foto12.jpg" alt="Foto 12">
+    <img src="src/foto13.jpg" alt="Foto 13">
+    <img src="src/foto14.jpg" alt="Foto 14">
+    <img src="src/foto15.jpg" alt="Foto 15">
+    <img src="src/foto16.jpg" alt="Foto 16">
+    <img src="src/foto17.jpg" alt="Foto 17">
+    <img src="src/foto18.jpg" alt="Foto 18">
+  </section>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <div class="modal-content">
+      <img id="modalImg" src="" alt="Foto ampliada">
+      <div id="mensaje"></div>
+    </div>
+    <canvas id="confeti" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></canvas>
+  </div>
+
+  <!-- Música romántica -->
+  <audio id="bg-music" loop autoplay>
+    <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mp3">
+  </audio>
+  <button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+  <script>
+    // Mensajes románticos
+    const mensajes = [
+  "🌸 Me encanta compartir momentos contigo 💛",
+  "💛 Gracias por estar siempre ahí",
+  "🌼 Eres alguien muy especial para mí 💓",
+  "💖 Cada día contigo es mejor que el anterior",
+  "🌹 Me haces sonreír incluso en días difíciles",
+  "🌞 Tu compañía hace todo más fácil",
+  "💫 Contigo todo se siente más ligero",
+  "💗 Me gusta cómo compartimos nuestras pequeñas cosas",
+  "🌷 Gracias por los momentos simples y sinceros",
+  "💞 Eres importante en mi vida de muchas maneras",
+  "✨ Cada charla contigo ilumina mi día",
+  "💛 Me alegra ver cómo crecemos juntos",
+  "🌼 Tu risa es contagiosa y me hace feliz",
+  "💖 Estar contigo es sentirse en casa",
+  "🌹 Aprecio todo lo que compartimos día a día"
+];
+
+
+    // Música
+    const music = document.getElementById("bg-music");
+    function toggleMusic() {
+      if (music.paused) music.play();
+      else music.pause();
+    }
+
+    // Modal y mensaje
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImg");
+    const mensaje = document.getElementById("mensaje");
+    let mensajeInterval;
+
+    document.querySelectorAll(".galeria img").forEach(img => {
+      img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+
+        // Mostrar mensaje inicial
+        mostrarMensaje();
+        mensajeInterval = setInterval(mostrarMensaje, 4000);
+
+        iniciarConfeti();
+      });
+    });
+
+    function mostrarMensaje() {
+      const texto = mensajes[Math.floor(Math.random() * mensajes.length)];
+      mensaje.textContent = texto;
+    }
+
+    function cerrarModal() { 
+      modal.style.display = "none"; 
+      clearInterval(mensajeInterval);
+      detenerConfeti();
+    }
+
+    // Canvas animado de fondo
+    const canvas = document.getElementById("flores");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particula {
+      constructor(tipo="flor") {
+        this.tipo = tipo;
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + Math.random() * 200;
+        this.size = 15 + Math.random() * 20;
+        this.speed = 0.5 + Math.random() * 1.2;
+        this.angle = Math.random() * 2 * Math.PI;
+        this.spin = 0.01 + Math.random() * 0.02;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        if(this.tipo === "flor") {
+          for (let i = 0; i < 6; i++) {
+            ctx.rotate(Math.PI / 3);
+            const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
+            gradient.addColorStop(0, "#fffacd");
+            gradient.addColorStop(1, "#ffd700");
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.ellipse(0, this.size, this.size/2, this.size, 0, 0, Math.PI*2);
+            ctx.fill();
+          }
+          ctx.beginPath();
+          ctx.fillStyle = "#b8860b";
+          ctx.arc(0,0,this.size/3,0,Math.PI*2);
+          ctx.fill();
+        } else if(this.tipo === "corazon") {
+          ctx.fillStyle = "rgba(255,105,180,0.8)";
+          ctx.beginPath();
+          ctx.moveTo(0,0);
+          ctx.bezierCurveTo(-this.size/2,-this.size/2,-this.size,this.size/3,0,this.size);
+          ctx.bezierCurveTo(this.size,this.size/3,this.size/2,-this.size/2,0,0);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = "rgba(255,215,0,0.8)";
+          ctx.beginPath();
+          for(let i=0;i<5;i++){
+            ctx.lineTo(Math.cos((18+i*72)*Math.PI/180)*this.size,-Math.sin((18+i*72)*Math.PI/180)*this.size);
+            ctx.lineTo(Math.cos((54+i*72)*Math.PI/180)*(this.size/2),-Math.sin((54+i*72)*Math.PI/180)*(this.size/2));
+          }
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+      update() {
+        this.y -= this.speed;
+        this.angle += this.spin;
+        if(this.y < -50){
+          this.y = canvas.height + 50;
+          this.x = Math.random() * canvas.width;
+        }
+      }
+    }
+
+    const particulas = [];
+    for(let i=0;i<25;i++) particulas.push(new Particula("flor"));
+    for(let i=0;i<15;i++) particulas.push(new Particula("corazon"));
+    for(let i=0;i<20;i++) particulas.push(new Particula("estrella"));
+
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particulas.forEach(p=>{ p.update(); p.draw(ctx); });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener("resize",()=>{
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Confeti para el modal
+    let confetiCanvas, confetiCtx, confetiParticulas=[], confetiAnim;
+
+    function iniciarConfeti(){
+      confetiCanvas = document.getElementById("confeti");
+      confetiCtx = confetiCanvas.getContext("2d");
+      confetiCanvas.width = modal.clientWidth;
+      confetiCanvas.height = modal.clientHeight;
+
+      confetiParticulas = [];
+      for(let i=0;i<100;i++){
+        confetiParticulas.push({
+          x: Math.random()*confetiCanvas.width,
+          y: Math.random()*confetiCanvas.height,
+          size: 5 + Math.random()*10,
+          color: Math.random()<0.5?"#ff69b4":"#ffd700",
+          speed: 1+Math.random()*3
+        });
+      }
+
+      confetiAnim = requestAnimationFrame(animarConfeti);
+    }
+
+    function animarConfeti(){
+      confetiCtx.clearRect(0,0,confetiCanvas.width,confetiCanvas.height);
+      confetiParticulas.forEach(p=>{
+        confetiCtx.fillStyle = p.color;
+        confetiCtx.beginPath();
+        confetiCtx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        confetiCtx.fill();
+        p.y += p.speed;
+        if(p.y>confetiCanvas.height) p.y=-10;
+      });
+      confetiAnim = requestAnimationFrame(animarConfeti);
+    }
+
+    function detenerConfeti(){
+      cancelAnimationFrame(confetiAnim);
+      confetiCtx.clearRect(0,0,confetiCanvas.width,confetiCanvas.height);
+    }
+
+  </script>
+</body>
+</html>
